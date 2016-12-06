@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 DEFAULT_AP = 0 # if the question has no answer in the candidates
 DEFAULT_RR = 0
-def AP(series):
+def AP(arr):
     '''
     Average Precision, for one question
     arr is a Series of {0, 1}
@@ -13,7 +13,7 @@ def AP(series):
     res = DEFAULT_AP if num_ans == 0 else ((csum / pos * arr).sum() / num_ans)
     return res
 
-def RR(series):
+def RR(arr):
     '''
     Reciprocal Rank, for one question
     arr is a Series of {0, 1}

@@ -2,7 +2,7 @@
 - how does sth./sb. do sth?
 - how much/deep/large/old/...: number
 
-how old can be deduced from birth time
+- how old can be deduced from birth time
 
 ### what
 - what countries
