@@ -1,3 +1,4 @@
+## Rank candidate answers for a given question.
 ### how
 - how does sth./sb. do sth?
 - how much/deep/large/old/...: number

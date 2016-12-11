@@ -1,11 +1,11 @@
 import sys
 
 if __name__ == "__main__":
-    
+
     if len(sys.argv) != 3:
         print "Usage: python eval.py <your_predict_file> <origin_data_file>"
         exit(0)
-    
+
     answer_file = sys.argv[1]
     gold_file = sys.argv[2]
     dic = {}
@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
         q_id = cols[0]
         a_id = cols[4]
-        
+
         if not q_id in dic:
             dic[q_id] = {}
         dic[q_id][a_id] = [cols[6],-1]
@@ -68,4 +68,4 @@ if __name__ == "__main__":
     print "MRR", MRR
 
     exit(0)
-    
+

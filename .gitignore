@@ -32,3 +32,6 @@ trash*
 nohup.out
 *.pdf
 .ipynb_checkpoints/*
+rank.txt
+*.model
+*.state
