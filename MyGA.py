@@ -4,16 +4,16 @@ from deap import creator
 from deap import tools
 
 class MyGA(object):
-    def __init__(self, gen_param, evaluate, mut_indiv, CXPB=0.5, MUTPB=0.2, objective='FitnessMax'):
+    def __init__(self, gen_param, evaluate, mut_indiv, CXPB=0.5, MUTPB=0.2, objective='FitnessMax', container=list):
         creator.create(objective, base.Fitness, weights=(1.0 if objective=='FitnessMax' else -1.0,))
-        creator.create("Individual", list, fitness=eval('creator.' + objective))
+        creator.create("Individual", container, fitness=eval('creator.' + objective))
         self.toolbox = base.Toolbox()
         self.toolbox.register('gen_param', gen_param)
         self.toolbox.register("individual", tools.initIterate, creator.Individual, self.toolbox.gen_param)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
         self.toolbox.register("evaluate", evaluate)
         self.toolbox.register("mate", tools.cxTwoPoint)
-        self.toolbox.register("mutate", mut_indiv, indiv_pb=0.05)
+        self.toolbox.register("mutate", mut_indiv, indiv_pb=0.2)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
         self.all_gens = list()
         self.CXPB = CXPB
