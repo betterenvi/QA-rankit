@@ -36,3 +36,5 @@ rank.txt
 *.model
 *.state
 Untitled.*
+explore.ipynb
+model/*

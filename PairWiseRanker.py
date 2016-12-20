@@ -45,6 +45,26 @@ class PairWiseRanker(object):
         self.model = model
         return self
 
+    def init_predict(self, QID, X):
+        self.QID_pred = QID
+        self.X_pred = X
+        self.X_new_pred, _ = self._reconstruct_features(QID, X)
+    
+    def do_predict(self, mn):
+        self.model = self.models[mn]
+        pred_new = self.model.predict_proba(self.X_new_pred)
+        pred = Series([0.0] * self.X_pred.shape[0], index=self.X_pred.index)
+        qaid_pairs = map(lambda pair : pair.split(' '), self.X_new_pred.index)
+        qaid_l = map(lambda pair : pair[0], qaid_pairs)
+        qaid_r = map(lambda pair : pair[1], qaid_pairs)
+        pred_l = Series(pred_new[:, 1], index=qaid_l)
+        pred_r = Series(pred_new[:, 0], index=qaid_r)
+        pred += pred_l.groupby(pred_l.index).agg(sum)
+        pred += pred_r.groupby(pred_r.index).agg(sum)
+        # pred[qaid_l] += pred_new[:, 1] # wrong. seems qaid_l may has two or more elements that have same values
+        # pred[qaid_r] += pred_new[:, 0]
+        return pred
+    
     def predict(self, QID, X, mn):
         self.model = self.models[mn]
         X_new, _ = self._reconstruct_features(QID, X)
@@ -59,4 +79,4 @@ class PairWiseRanker(object):
         pred += pred_r.groupby(pred_r.index).agg(sum)
         # pred[qaid_l] += pred_new[:, 1] # wrong. seems qaid_l may has two or more elements that have same values
         # pred[qaid_r] += pred_new[:, 0]
-        return pred.values
+        return pred

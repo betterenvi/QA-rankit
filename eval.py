@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
     MAP = 0.0
     MRR = 0.0
+    num_valid_question = 0
     for q_id in dic:
         sort_rank = sorted(dic[q_id].iteritems(), key = lambda asd:asd[1][1], reverse = False)
         correct = 0
@@ -58,11 +59,13 @@ if __name__ == "__main__":
             if sort_rank[i][1][0] == '1':
                 correct += 1
                 AP += float(correct) / float(total)
-        AP /= float(correct)
-        MAP += AP
+        if correct > 0:
+            num_valid_question += 1
+            AP /= float(correct)
+            MAP += AP
 
-    MAP /= float(len(dic))
-    MRR /= float(len(dic))
+    MAP /= float(num_valid_question)
+    MRR /= float(num_valid_question)
     print "Final Evaluation Score:"
     print "MAP:", MAP
     print "MRR", MRR
