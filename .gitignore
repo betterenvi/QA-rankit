@@ -35,3 +35,5 @@ nohup.out
 rank.txt
 *.model
 *.state
+explore.ipynb
+model/*

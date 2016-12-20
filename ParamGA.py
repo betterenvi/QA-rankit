@@ -1,12 +1,3 @@
-import sys, os, collections, copy, re, random, itertools
-import numpy as np
-import pandas as pd
-from pandas import DataFrame, Series
-from util import *
-from PairWiseRanker import *
-from sklearn.ensemble import RandomForestClassifier
-from MyGA import *
-
 class ParamGA(object):
     def __init__(self, QID_trn, X_trn, Y_trn, QID_dev, X_dev, Y_dev, 
                  model_name='RandomForestClassifier', param_funcs=dict(), 
@@ -41,18 +32,19 @@ class ParamGA(object):
         flag = ''
         for pn in self.param_funcs:
             gene = indiv[self.param_index[pn]]
-            if type(gene) == str:
+            if type(gene) in [str, np.string_]:
                 eval_str += flag + pn + '="' + str(gene) + '"'
             else:
                 eval_str += flag + pn + '=' + str(gene)
             flag = ', '
         for pn in self.param_static:
-            if type(self.param_static[pn]) == str:
+            if type(self.param_static[pn]) in [str, np.string_]:
                 eval_str += flag + pn + '="' + str(self.param_static[pn]) + '"'
             else:
                 eval_str += flag + pn + '=' + str(self.param_static[pn])
             flag = ', '
         eval_str += ')'
+        #print eval_str
         model = eval(eval_str)
         model_idx = self.counter.next()
         if self.pair_wise:

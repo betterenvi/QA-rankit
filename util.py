@@ -29,3 +29,4 @@ MRR = lambda grp, keep_no_ans=True : grp.agg(RR).mean() if keep_no_ans else np.n
 # MRR = lambda grp, keep_no_ans=True : grp.agg(RR).mean() if keep_no_ans else np.nanmean(grp.agg(RR, np.nan)) # also works
 
 count_num_cooccur = lambda x, y : len(set(x) & set(y))
+
